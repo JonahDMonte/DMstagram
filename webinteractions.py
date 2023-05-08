@@ -74,14 +74,18 @@ class webinteractor:
         filtered = []
         n = 0
         while n < len(users):
-            if not (users[n] in self.accounts["mutedusers"]):
-                # or (msgs[n] == "Sent you a message" and accounts["mutereels"] == True) or (msgs[n] == "Sent a post " and accounts["mutereels"] == True)
-                if msgs[n] == "Sent you a message":
-                    filtered.append([users[n], "Reel"])
-                elif msgs[n] == "Sent a post":
-                    filtered.append([users[n], "Post"])
-                else:
-                    filtered.append([users[n], msgs[n]])
+            try:
+                if not (users[n] in self.accounts["mutedusers"]):
+                    # or (msgs[n] == "Sent you a message" and accounts["mutereels"] == True) or (msgs[n] == "Sent a post " and accounts["mutereels"] == True)
+                    if msgs[n] == "Sent you a message":
+                        filtered.append([users[n], "Reel"])
+                    elif msgs[n] == "Sent a post":
+                        filtered.append([users[n], "Post"])
+                    else:
+                        filtered.append([users[n], msgs[n]])
+            except:
+                self.relogin()
+                return [['Checkmsgs error occurred', 'Relogin attempted']]
             n += 1
         return filtered
 

@@ -63,6 +63,8 @@ async def startup(message):
     #     webi.relogin()
 
 
+async def send_response(x, y):
+    webi.respond(x, y)
 @bot.event
 async def on_message(message):
     if message.content == 'test':
@@ -78,7 +80,7 @@ async def on_message(message):
     if message.content.startswith("respond"):
         await message.channel.send("Responding")
         str = message.content.split(',,')
-        await webi.respond(str[1], str[2])
+        await send_response(str[1], str[2])
         await message.channel.send("Response sent")
 
     if message.content == 'relogin':
