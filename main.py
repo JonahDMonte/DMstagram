@@ -21,12 +21,11 @@ ser = Service(r"C:\Users\Jonah D'Monte\Documents\DMstagram\chromedriver.exe")
 driver = webdriver.Chrome(service=ser, options=chrome_options)
 webi = wi.webinteractor(driver)
 webi.login()
-
 @bot.event
 async def on_ready():
     print(f'Bot connected as {bot.user}')
 
-async def startup(message):
+async def startup(message, n):
     await bot.change_presence(
         activity=discord.Activity(type=discord.ActivityType.listening, name='Instagram DMs'))
 
@@ -53,7 +52,7 @@ async def startup(message):
     await bot.change_presence(
         activity=discord.Activity(type=discord.ActivityType.listening, name='Pink Floyd'))
 
-    print("Check Successful\r", end='', flush=True)
+    print(f"Checks: {n}\r", end='', flush=True)
     # except:
     #     message.channel.send("Check failed.")
     #
@@ -71,10 +70,13 @@ async def on_message(message):
         await message.channel.send('Testing 1 2 3')
 
     if message.content == 'startup':
+
+        n = 0
         await message.channel.send("Starting up!")
 
         while True:
-            await startup(message)
+            await startup(message, n)
+            n += 1
             await asyncio.sleep(60)
 
     if message.content.startswith("respond"):
