@@ -6,26 +6,36 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 class dmstagram:
-    def __init__(self, driver):
+    def __init__(self, username, password, mutedusers):
 
         self.accounts = {
-          "instagramUsername": "6476738000",
-          "instagramPassword": "Globie123",
+          "instagramUsername": username,
+          "instagramPassword": password,
           "autologin": True,
-          "mutedusers": ["OG Gangsters", "Ahnenerbe Cafe"],
+          "mutedusers": mutedusers,
           "mutereels": False,
         }
 
-          # remove this line to debug browser
-        self.driver = driver
+
+        self.chrome_options = Options()
+        self.chrome_options.add_argument("--headless=new")
+        self.ser = Service(r"C:\Users\Jonah D'Monte\Documents\DMstagram\chromedriver.exe")
+        self.driver = webdriver.Chrome(service=self.ser, options=self.chrome_options)
         self.driver.get("https://www.instagram.com/direct/inbox/")
         self.username = self.accounts['instagramUsername']
         self.password = self.accounts['instagramPassword']
         self.mutedusers = self.accounts['mutedusers']
         self.chrome_options = Options()
-        #self.chrome_options.add_argument("--headless=new")
+        self.chrome_options.add_argument("--headless=new")
 
 
     def login(self):
@@ -56,7 +66,7 @@ class dmstagram:
         if self.accounts["autologin"]:
             self.login()
 
-    def checkmsgs(self):
+    def msgcheck(self):
         new_msg_span_class = "_aacl _aaco _aacw _aacx _aad7"
         new_msg_user_span_class = "x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs xt0psk2 x1i0vuye xvs91rp x1s688f x5n08af x10wh9bi x1wdrske x8viiok x18hxmgj"
         self.driver.refresh()

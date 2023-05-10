@@ -3,23 +3,14 @@ import json
 
 import discord
 from discord.ext import commands
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+
 
 import DMstagram as dm
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 token = "Njk3MTY0OTQ2MDkzMzc1NTE4.GQEivi.zTGPvHv590JUSno24yFXtD6jlxKZdpoNY_p6B4"
-chrome_options = Options()
-#chrome_options.add_argument("--headless=new")
-ser = Service(r"C:\Users\Jonah D'Monte\Documents\DMstagram\chromedriver.exe")
-driver = webdriver.Chrome(service=ser, options=chrome_options)
-webi = dm.dmstagram(driver)
+
+webi = dm.dmstagram("6476738000", "Globie123", ["OG Gangsters", "Ahnenerbe Cafe"],)
 webi.login()
 @bot.event
 async def on_ready():
@@ -29,7 +20,7 @@ async def startup(message, n):
     await bot.change_presence(
         activity=discord.Activity(type=discord.ActivityType.listening, name='Instagram DMs'))
 
-    instamsgs = webi.checkmsgs()
+    instamsgs = webi.msgcheck()
     with open("saved.json", "r") as f:
         saved = json.load(f)
     # try:
