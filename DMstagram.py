@@ -7,7 +7,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-class webinteractor:
+class dmstagram:
     def __init__(self, driver):
 
         self.accounts = {
@@ -25,7 +25,7 @@ class webinteractor:
         self.password = self.accounts['instagramPassword']
         self.mutedusers = self.accounts['mutedusers']
         self.chrome_options = Options()
-        self.chrome_options.add_argument("--headless=new")
+        #self.chrome_options.add_argument("--headless=new")
 
 
     def login(self):
@@ -98,17 +98,22 @@ class webinteractor:
             users = [i for i in spans_arr if i.get_attribute('class') == new_msg_user_span_class]
         except:
             self.relogin()
-            return [['Respond error occurred', 'Relogin attempted']]
+            return 'Respond error occurred, relogin attempted'
 
         for i in users:
             if i.text == user:
-                i.click()
-                time.sleep(3)
-                sender = ActionChains(self.driver)
-                sender.send_keys(msg)
-                sender.send_keys(Keys.ENTER)
-                sender.perform()
-                self.driver.get("https://www.instagram.com/direct/inbox/")
+                try:
+                    i.click()
+                    time.sleep(3)
+                    sender = ActionChains(self.driver)
+                    sender.send_keys(msg)
+                    sender.send_keys(Keys.ENTER)
+                    sender.perform()
+                    self.driver.get("https://www.instagram.com/direct/inbox/")
+                    return "Response sent!"
+                except Exception as e:
+                    print("Respond exception. Message still sent, maybe?")
+                    print(e)
             else:
                 pass
 

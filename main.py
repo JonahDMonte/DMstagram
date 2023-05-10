@@ -11,15 +11,15 @@ from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
-import webinteractions as wi
+import DMstagram as dm
 
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 token = "Njk3MTY0OTQ2MDkzMzc1NTE4.GQEivi.zTGPvHv590JUSno24yFXtD6jlxKZdpoNY_p6B4"
 chrome_options = Options()
-chrome_options.add_argument("--headless=new")
+#chrome_options.add_argument("--headless=new")
 ser = Service(r"C:\Users\Jonah D'Monte\Documents\DMstagram\chromedriver.exe")
 driver = webdriver.Chrome(service=ser, options=chrome_options)
-webi = wi.webinteractor(driver)
+webi = dm.dmstagram(driver)
 webi.login()
 @bot.event
 async def on_ready():
@@ -62,8 +62,9 @@ async def startup(message, n):
     #     webi.relogin()
 
 
-async def send_response(x, y):
-    webi.respond(x, y)
+async def send_response(x, y, msg):
+    await msg.channel.send(webi.respond(x, y))
+
 @bot.event
 async def on_message(message):
     if message.content == 'test':
@@ -82,8 +83,8 @@ async def on_message(message):
     if message.content.startswith("respond"):
         await message.channel.send("Responding")
         str = message.content.split(',,')
-        await send_response(str[1], str[2])
-        await message.channel.send("Response sent")
+        await send_response(str[1], str[2], message)
+
 
     if message.content == 'relogin':
         await message.channel.send(webi.relogin())

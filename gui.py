@@ -1,5 +1,5 @@
 import tkinter as tk
-import webinteractions as wi
+import DMstagram as wi
 
 
 window = tk.Tk()
