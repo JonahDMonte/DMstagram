@@ -34,8 +34,7 @@ class dmstagram:
         self.username = self.accounts['instagramUsername']
         self.password = self.accounts['instagramPassword']
         self.mutedusers = self.accounts['mutedusers']
-        self.chrome_options = Options()
-        self.chrome_options.add_argument("--headless=new")
+
 
 
     def login(self):
